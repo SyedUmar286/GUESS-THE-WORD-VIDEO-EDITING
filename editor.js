@@ -34,3 +34,19 @@ new Sortable(timelineContainer, {
     animation: 150,
     ghostClass: 'sortable-ghost'
 });
+
+// Timeline ki images par click karne par preview dikhane ka logic
+document.querySelector('.timeline-controls').addEventListener('click', function(e) {
+    // Agar humne <img> tag par click kiya hai
+    if (e.target.tagName === 'IMG') {
+        const preview = document.getElementById('active-preview');
+        const canvasText = document.getElementById('video-canvas');
+        
+        // Image ka source preview mein daal do
+        preview.src = e.target.src;
+        preview.style.display = 'block';
+        
+        // Text hata do
+        canvasText.style.display = 'none';
+    }
+});

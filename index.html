@@ -7,7 +7,8 @@
 <body>
     <div class="app-container">
         <aside class="sidebar">
-            <div class="tool-box">Images Upload</div>
+            <div class="tool-box" onclick="document.getElementById('file-input').click()">Images Upload</div>
+<input type="file" id="file-input" multiple accept="image/*" style="display:none" onchange="handleImageUpload(event)">
             <div class="tool-box">Effects</div>
             <div class="tool-box">Export</div>
         </aside>

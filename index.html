@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="editor.css">
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <title>Pro Video Editor</title>
 </head>
@@ -11,8 +12,7 @@
             <div class="tool-box" onclick="document.getElementById('file-input').click()">Images Upload</div>
 <input type="file" id="file-input" multiple accept="image/*" style="display:none" onchange="handleImageUpload(event)">
             <div class="tool-box">Effects</div>
-            <div class="tool-box">Export</div>
-        </aside>
+            <div class="tool-box" id="export-btn" onclick="exportVideo()">Export Video</div>
 
         <main class="viewport">
     <div class="preview-area">

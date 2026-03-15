@@ -50,3 +50,34 @@ document.querySelector('.timeline-controls').addEventListener('click', function(
         canvasText.style.display = 'none';
     }
 });
+
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({ log: true });
+
+async function exportVideo() {
+    const exportBtn = document.getElementById('export-btn');
+    exportBtn.innerText = "Rendering... (Wait karein)";
+
+    if (!ffmpeg.isLoaded()) await ffmpeg.load();
+
+    const images = document.querySelectorAll('.timeline-controls img');
+
+    for (let i = 0; i < images.length; i++) {
+        const fileData = await fetchFile(images[i].src);
+        ffmpeg.FS('writeFile', `image${i}.png`, fileData);
+    }
+
+    // 0.5 ka matlab 2 second, aap ise badal kar duration control kar sakte hain
+    await ffmpeg.run('-framerate', '0.5', '-i', 'image%d.png', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', 'output.mp4');
+
+    const data = ffmpeg.FS('readFile', 'output.mp4');
+    const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
+    const url = URL.createObjectURL(videoBlob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'my-video.mp4';
+    a.click();
+
+    exportBtn.innerText = "Export Video";
+}

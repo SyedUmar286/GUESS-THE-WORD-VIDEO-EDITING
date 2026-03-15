@@ -25,3 +25,12 @@ function handleImageUpload(event) {
         reader.readAsDataURL(file);
     }
 }
+
+// ... aapka pehle wala sara code yahan rahega ...
+
+// SortableJS ka initialization (File ke bilkul end mein dalein)
+const timelineContainer = document.querySelector('.timeline-controls');
+new Sortable(timelineContainer, {
+    animation: 150,
+    ghostClass: 'sortable-ghost'
+});
